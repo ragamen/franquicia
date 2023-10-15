@@ -7,7 +7,7 @@ class AgenciaHelper {
     final response = await cliente
         .from('agencias')
         .select(
-            'codigoagencia,nombreagencia,direccion,correo,banco,telefono,cedulaadmin,cupo,comision,nroticket,serial')
+            'codigofranquicia,codigoagencia,nombreagencia,direccion,correo,banco,telefono,cedulaadmin,cupo,comision,nroticket,serial')
         .eq('codigoagencia', codagencia);
     Agencia agencia = Agencia.fromMap(response[0]);
     return agencia;
@@ -16,7 +16,7 @@ class AgenciaHelper {
   static getAgencias01() async {
     try {
       final response = await cliente.from('agencias').select(
-          'codigoagencia,nombreagencia,direccion,correo,banco,telefono,cedulaadmin,cupo,comision,nroticket,serial');
+          'codigofranquicia,codigoagencia,nombreagencia,direccion,correo,banco,telefono,cedulaadmin,cupo,comision,nroticket,serial');
       int count = response.length;
       List<Agencia> agencia = [];
       for (int i = 0; i < count; i++) {
@@ -31,6 +31,7 @@ class AgenciaHelper {
   static Future<void> createAgencia(Agencia agencia) async {
     await cliente.from('agencias').insert([
       {
+        'codigofranquicia': agencia.codigofranquicia,
         'codigoagencia': agencia.codigoagencia,
         'nombreagencia': agencia.nombreagencia,
         'direccion': agencia.direccion,
@@ -57,6 +58,8 @@ class AgenciaHelper {
   static Future<void> updateAgencia(Agencia agencia) async {
     // ignore: unused_local_variable
     final response = await cliente.from('agencias').update({
+      'nombrefranquicia': agencia.codigofranquicia,
+      'codigoagencia': agencia.codigoagencia,
       'nombreagencia': agencia.nombreagencia,
       'direccion': agencia.direccion,
       'correo': agencia.correo,

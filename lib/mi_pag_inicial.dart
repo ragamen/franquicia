@@ -30,6 +30,7 @@ class DashboardScreen extends StatefulWidget {
 
 class DashboardScreenState extends State<DashboardScreen> {
   String selectedOption = 'Agregar Agencia'; // Opción seleccionada por defecto
+  TextEditingController codigoFranquicia = TextEditingController();
   TextEditingController codigoAgencia = TextEditingController();
   TextEditingController nombreAgencia = TextEditingController();
   TextEditingController direccion = TextEditingController();
@@ -62,6 +63,7 @@ class DashboardScreenState extends State<DashboardScreen> {
   }
 
   void iniciarAgencia() {
+    codigoFranquicia.text = "";
     codigoAgencia.text = "";
     nombreAgencia.text = "";
     direccion.text = "";
@@ -149,6 +151,7 @@ class DashboardScreenState extends State<DashboardScreen> {
               child: const Text('Agregar'),
               onPressed: () {
                 Agencia agencia = Agencia(
+                  codigofranquicia: codigoFranquicia.text,
                   codigoagencia: codigoAgencia.text,
                   nombreagencia: nombreAgencia.text,
                   direccion: direccion.text,
@@ -207,6 +210,7 @@ class DashboardScreenState extends State<DashboardScreen> {
               child: const Text('Buscar'),
               onPressed: () async {
                 if (selectedAgencia != null) {
+                  codigoFranquicia.text = selectedAgencia!.codigofranquicia;
                   codigoAgencia.text = selectedAgencia!.codigoagencia;
                   nombreAgencia.text = selectedAgencia!.nombreagencia;
                   direccion.text = selectedAgencia!.direccion;
@@ -261,6 +265,7 @@ class DashboardScreenState extends State<DashboardScreen> {
               child: const Text('Actualizar'),
               onPressed: () {
                 Agencia agencia = Agencia(
+                  codigofranquicia: codigoFranquicia.text,
                   codigoagencia: codigoAgencia.text,
                   nombreagencia: nombreAgencia.text,
                   direccion: direccion.text,
